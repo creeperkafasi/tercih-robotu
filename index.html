@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tercih Robotu</title>
+</head>
+
+<body>
+    <h1>Akıllı tercih robotu</h1>
+
+    <div class="main-grid">
+        <div>
+            <div class="border">
+                <h3>Yerleştirme sıralaması:</h3>
+                <i>(Ör; 49000, 123096, 1000000)</i> <br>
+                <input type="number" name="" id="ypuan">
+            </div>
+            <div class="border">
+                <h3>Tercih edilecek bölümler:</h3>
+                <i>(Her satır ayrı bir arama)</i> <br>
+                <textarea name="Bölümler" id="departments" cols="40" rows="5"></textarea>
+            </div>
+            <div class="border">
+                <h3>Bölüm ücreti:</h3>
+                <div id="pricing">
+                </div>
+            </div>
+        </div>
+        <div>
+            <button id="calculate">
+                Hesapla!
+            </button>
+            <div id="results" class="border">
+                <h3>Sonuçlar</h3>
+                <ul></ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+<style>
+    body {
+        text-align: center;
+    }
+
+    .main-grid {
+        display: grid;
+        grid-template-columns: min-content 1fr;
+    }
+
+    .main-grid>div {
+        padding: 1rem;
+    }
+
+    #pricing>div {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin: 0 10%;
+    }
+
+    #pricing>div:nth-of-type(2n) {
+        background-color: lightgrey;
+    }
+
+    #calculate {
+        width: 100%;
+        font-size: large;
+        padding: 0.5rem;
+    }
+
+    #results {
+        height: 100%;
+    }
+
+    .resultItem {
+        display: grid;
+        grid-template-columns: 1fr 1fr 0.2fr 0.1fr;
+        border: 0.5px dotted;
+        padding: 0.2rem;
+    }
+
+    #results li:nth-of-type(2n) {
+        background-color: lightgray;
+    }
+
+    .border {
+        margin: 0.5rem;
+        padding: 0.5rem;
+        border: 1px solid black;
+    }
+</style>
+
+<script>
+    const pricings = [
+        "Burslu",
+        "Ücretsiz",
+        "Ücretli",
+        "İÖ_Ücretli",
+        "UE_Ücretli",
+        "AÖ_Ücretli",
+        "%75 indirimli",
+        "%50 indirimli",
+        "%25 indirimli",
+    ]
+
+    pricings.forEach((v, index) => {
+        const d = document.createElement("div");
+        const i = document.createElement("input");
+        i.type = "checkbox";
+        i.name = v;
+        i.checked = index < 2;
+        i.setAttribute("data-checked", i.checked);
+        i.onchange = () => { i.setAttribute("data-checked", i.checked) }
+        d.appendChild(i);
+        d.append(v)
+        document.getElementById("pricing").appendChild(d);
+    })
+
+    document.getElementById("calculate").onclick = () => {
+        fetch("/search", {
+            method: "POST", body: JSON.stringify(
+                {
+                    searchTerms: document.getElementById("departments").value.split("\n"),
+                    selectedPricings: Array.from(document.querySelectorAll("#pricing input[type=checkbox][data-checked=true]"))
+                        .map((el) => el.name.replace(" ", "+")),
+                    baseRanking: Number.parseInt("0" + document.getElementById("ypuan").value)
+                }
+            ),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(async res => {
+            document.querySelector("#results>ul").replaceChildren([]);
+
+            /**
+             * @type {string[][]}
+            */
+            const deps = await res.json();
+            console.log(deps)
+            deps.forEach((d) => {
+                const li = document.createElement("li");
+                li.innerHTML = `
+                <div class="resultItem">
+                    <span>${d[41]}</span>
+                    <span>${d[42]}</span>
+                    <span>${d[44]}</span>
+                    <a href="https://yokatlas.yok.gov.tr/${d[1].match(/lisans\.php\?y=[0-9]{9}/g)[0]}" 
+                        target="_blank" rel="noopener noreferrer">➡️</a>
+                </div>
+                `;
+
+                document.querySelector("#results>ul").append(li);
+            })
+        })
+    };
+</script>
+
+</html>
