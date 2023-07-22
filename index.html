@@ -123,7 +123,7 @@
         margin-top: 3rem;
     }
 
-    .sep{
+    .sep {
         padding: 0 1rem;
     }
 </style>
@@ -194,7 +194,7 @@
         const results =
             searchTerms.map((search) =>
                 selectedPricings.map((pricing) =>
-                    fetchYOK(search, baseRanking, pricing)
+                    fetchYOK(search.trim(), baseRanking, pricing)
                 )
             ).flat();
         return (await Promise.all(results)).flat().sort((a, b) => Number.parseInt(a[44]) - Number.parseInt(b[44]));
