@@ -30,7 +30,7 @@ const app = new Elysia()
 console.log("App running at http://localhost:8080/ ")
 
 async function fetchYOK(search: string, rank: number, pricing: string) {
-    const res = await fetch("https://yokatlas.yok.gov.tr/server_side/server_processing-atlas2016-TS-t4.php", {
+    const res = await fetch("https://corsproxy.io/?" + encodeURIComponent("https://yokatlas.yok.gov.tr/server_side/server_processing-atlas2016-TS-t4.php"), {
         "credentials": "include",
         "headers": {
             "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0",
