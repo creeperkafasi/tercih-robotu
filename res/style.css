@@ -35,15 +35,15 @@ body {
     font-family: 'Roboto';
 }
 
-h1{
+h1 {
     font-weight: 700;
 }
 
-h3{
+h3 {
     font-weight: normal;
 }
 
-#results>h3{
+#results>h3 {
     margin-top: 0.5rem;
 }
 
@@ -56,9 +56,21 @@ textarea {
     accent-color: var(--ctp-blue);
     border-radius: 0.4rem;
     padding: 0.5rem;
+}
+
+input {
     margin: 0.5rem;
 }
 
+
+a {
+    color: var(--ctp-mauve);
+    text-decoration-style: dotted;
+}
+
+a.deniz {
+    color: var(--ctp-blue);
+}
 
 #pricing>div:nth-of-type(2n),
 #results li:nth-of-type(2n) {

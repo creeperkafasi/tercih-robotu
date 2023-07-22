@@ -38,6 +38,14 @@
             </div>
         </div>
     </div>
+    <footer>
+        <a href="https://deniz.is-a.dev" target="_blank" class="deniz">Deniz</a>'den sevgilerle ❤️ <br> <br>
+        <a href="https://yokatlas.yok.gov.tr/" target="_blank" rel="noopener noreferrer">Yükseköğretim Kurulu Program
+            Atlası</a>
+        <span class="sep">|</span>
+        <a href="http://corsproxy.io" target="_blank" rel="noopener noreferrer">Corsproxy.io</a>
+    </footer>
+
 </body>
 
 <link rel="stylesheet" href="res/style.css">
@@ -69,6 +77,7 @@
     #pricing>div {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr min-content;
         margin: 0 10%;
         padding: 0.4rem;
     }
@@ -83,9 +92,13 @@
         padding: 0.5rem;
     }
 
-    #results {
+
+    .main-grid>div:nth-of-type(2) {
+        display: grid;
+        grid-template-rows: min-content 1fr;
         height: 100%;
     }
+
 
     .resultItem {
         display: grid;
@@ -102,6 +115,16 @@
         margin: 0.5rem;
         padding: 0.5rem;
         border: 0.5px dotted black;
+    }
+
+    footer {
+        width: max-content;
+        margin: auto;
+        margin-top: 3rem;
+    }
+
+    .sep{
+        padding: 0 1rem;
     }
 </style>
 
