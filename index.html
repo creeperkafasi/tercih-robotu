@@ -50,6 +50,17 @@
         grid-template-columns: min-content 1fr;
     }
 
+
+    @media screen and (max-width: 600px) {
+        .main-grid {
+            grid-template-columns: 1fr;
+        }
+
+        #results {
+            min-height: 50vh;
+        }
+    }
+
     .main-grid>div {
         padding: 1rem;
     }
