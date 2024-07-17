@@ -215,7 +215,7 @@
                 <div class="resultItem">
                     <span>${d[41]}</span>
                     <span>${d[42]}</span>
-                    <span>${d[44]}</span>
+                    <span>${d[43]}</span>
                     <a href="https://yokatlas.yok.gov.tr/${d[1].match(/lisans\.php\?y=[0-9]{9}/g)[0]}" 
                         target="_blank" rel="noopener noreferrer">➡️</a>
                 </div>
@@ -248,10 +248,8 @@
 			}
             ))).flat(Infinity);
 		const results = await Promise.all(resultPromises);
-		return results.flat().filter((value)=>Number.parseInt(value[44])).toSorted((a, b) => {
-			let dif = Number.parseInt(a[44]) - Number.parseInt(b[44]);
-			if ((a[41]+b[41]).includes("TRAKYA"))
-			console.log(a[41], b[41], dif)
+		return results.flat().filter((value)=>Number.parseInt(value[43])).toSorted((a, b) => {
+			let dif = Number.parseInt(a[43]) - Number.parseInt(b[43]);
 			return dif;
 		});
     }
