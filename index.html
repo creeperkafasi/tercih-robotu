@@ -149,6 +149,7 @@
 </style>
 
 <script>
+	const puanField = 39;
 	/**
 	 * @typedef {Object} Options
 	 * @property {"say"|"soz"|"ea"|"dil"} puanType?
@@ -215,7 +216,7 @@
                 <div class="resultItem">
                     <span>${d[41]}</span>
                     <span>${d[42]}</span>
-                    <span>${d[43]}</span>
+                    <span>${d[puanField]}</span>
                     <a href="https://yokatlas.yok.gov.tr/${d[1].match(/lisans\.php\?y=[0-9]{9}/g)[0]}" 
                         target="_blank" rel="noopener noreferrer">➡️</a>
                 </div>
@@ -248,8 +249,8 @@
 			}
             ))).flat(Infinity);
 		const results = await Promise.all(resultPromises);
-		return results.flat().filter((value)=>Number.parseInt(value[43])).toSorted((a, b) => {
-			let dif = Number.parseInt(a[43]) - Number.parseInt(b[43]);
+		return results.flat().filter((value)=>value[puanField]!=NaN).toSorted((a, b) => {
+			let dif = a[puanField] - b[puanField];
 			return dif;
 		});
     }
@@ -303,7 +304,7 @@
 			`&columns%5B7%5D%5Bdata%5D=7&columns%5B7%5D%5Bname%5D=&columns%5B7%5D%5Bsearchable%5D=true&columns%5B7%5D%5Borderable%5D=false&columns%5B7%5D%5Bsearch%5D%5Bvalue%5D=${encodeURI(options.uniType)}&columns%5B7%5D%5Bsearch%5D%5Bregex%5D=false`+ // ÜNİVERSİTE TÜRÜ
 			`&columns%5B8%5D%5Bdata%5D=8&columns%5B8%5D%5Bname%5D=&columns%5B8%5D%5Bsearchable%5D=true&columns%5B8%5D%5Borderable%5D=false&columns%5B8%5D%5Bsearch%5D%5Bvalue%5D=${encodeURI(options.ucret)}&columns%5B8%5D%5Bsearch%5D%5Bregex%5D=false`+ // ÜCRET/BURS
 			`&columns%5B9%5D%5Bdata%5D=9&columns%5B9%5D%5Bname%5D=&columns%5B9%5D%5Bsearchable%5D=true&columns%5B9%5D%5Borderable%5D=false&columns%5B9%5D%5Bsearch%5D%5Bvalue%5D=${encodeURI(options.ogretimType)}&columns%5B9%5D%5Bsearch%5D%5Bregex%5D=false`+ // ÖĞRETİM TÜRÜ
-			`&order%5B0%5D%5Bcolumn%5D=37&order%5B0%5D%5Bdir%5D=desc&order%5B1%5D%5Bcolumn%5D=41&order%5B1%5D%5Bdir%5D=asc&order%5B2%5D%5Bcolumn%5D=42&order%5B2%5D%5Bdir%5D=asc&start=0&length=50&search%5Bvalue%5D=&search%5Bregex%5D=false&puan_turu=${options.puanType}&ust_bs=${options.topRank}&alt_bs=${options.bottomRank}&yeniler=1`+sdv,
+			`&order%5B0%5D%5Bcolumn%5D=34&order%5B0%5D%5Bdir%5D=desc&order%5B1%5D%5Bcolumn%5D=41&order%5B1%5D%5Bdir%5D=asc&order%5B2%5D%5Bcolumn%5D=42&order%5B2%5D%5Bdir%5D=asc&start=0&length=50&search%5Bvalue%5D=&search%5Bregex%5D=false&puan_turu=${options.puanType}&ust_bs=${options.topRank}&alt_bs=${options.bottomRank}&yeniler=1`+sdv,
             "method": "POST",
             "mode": "cors"
         });
