@@ -183,7 +183,7 @@
         const i = document.createElement("input");
         i.type = "checkbox";
         i.name = v;
-        i.checked = index < 2; // Ücretsiz ve Burslu
+        i.checked = index == 0; // Ücretsiz ve Burslu
         i.setAttribute("data-checked", i.checked);
         i.onchange = () => { i.setAttribute("data-checked", i.checked) }
         d.appendChild(i);
