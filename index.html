@@ -248,8 +248,12 @@
 				return fetchYOK(options);
 			}
             ))).flat(Infinity);
-		const results = await Promise.all(resultPromises);
-		return results.flat().filter((value)=>value[puanField]!=NaN).toSorted((a, b) => {
+		const results = (await Promise.all(resultPromises)).flat();
+		results.forEach((r)=>{
+			if (r[puanField] == 0)
+				r[puanField] = "----"
+		})
+		return results.filter((value)=>value[puanField]!=NaN).toSorted((a, b) => {
 			let dif = a[puanField] - b[puanField];
 			return dif;
 		});
